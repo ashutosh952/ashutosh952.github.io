@@ -135,6 +135,10 @@ for pubsource in publist:
                     md += "\npaperurl: '" + b["url"] + "'"
                     url = True
 
+            if "codeurl" in b.keys():
+                if len(str(b["codeurl"])) > 5:
+                    md += "\ncodeurl: '" + b["codeurl"] + "'"
+
             md += "\ncitation: '" + html_escape(citation) + "'"
 
             md += "\n---"
@@ -148,7 +152,22 @@ for pubsource in publist:
                 md += "\n[Access paper here](" + b["url"] + "){:target=\"_blank\"}\n" 
             else:
                 md += "\nUse [Google Scholar](https://scholar.google.com/scholar?q="+html.escape(clean_title.replace("-","+"))+"){:target=\"_blank\"} for full citation"
+            md += "\n{% if page.citation %}\n<p> {{ page.citation }} </p>\n{% endif %}\n"
 
+            md += """
+{% if page.paperurl or page.slidesurl or page.codeurl or page.bibtexurl %}
+<p>
+{%- assign links = "" | split: "" -%}
+{% if page.paperurl %}{%- assign link = '<a href="' | append: page.paperurl | append: '">Paper</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+{% if page.slidesurl %}{%- assign link = '<a href="' | append: page.slidesurl | append: '">Slides</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+{% if page.codeurl %}{%- assign link = '<a href="' | append: page.codeurl | append: '">Code</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+{% if page.bibtexurl %}{%- assign link = '<a href="' | append: page.bibtexurl | append: '">Citation</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+{{ links | join: " | " }}
+</p>
+{% else %}
+<p>Use <a href="https://scholar.google.com/scholar?q={{ page.title | url_encode }}">Google Scholar</a> for full citation.</p>
+{% endif %}
+"""
             md_filename = os.path.basename(md_filename)
 
             with open("../_publications/" + md_filename, 'w', encoding="utf-8") as f:

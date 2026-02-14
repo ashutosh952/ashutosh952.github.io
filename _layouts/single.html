@@ -49,16 +49,17 @@ layout: default
       <section class="page__content" itemprop="text">
         {{ content }}
 
-        {% if page.citation or page.paperurl or page.slidesurl or page.bibtexurl %}
+        {% if page.citation or page.paperurl or page.slidesurl or page.bibtexurl or page.codeurl %}
           <p style="font-size: smaller">
             {% if page.citation %}{{ page.citation }}{% endif %}
             {% if page.citation %}
-              {% if page.paperurl or page.slidesurl or page.bibtexurl %}<br />{% endif %}
+              {% if page.paperurl or page.slidesurl or page.bibtexurl or page.codeurl %}<br />{% endif %}
             {% endif %}
             {%- assign links = "" | split: "" -%}
-            {% if page.paperurl %}{%- assign link = '<a href="' | append: page.paperurl | append: '">Download Paper</a>' -%}{%- assign links = links | push: link -%}{% endif %}
-            {% if page.slidesurl %}{%- assign link = '<a href="' | append: page.slidesurl | append: '">Download Slides</a>' -%}{%- assign links = links | push: link -%}{% endif %}
-            {% if page.bibtexurl %}{%- assign link = '<a href="' | append: page.bibtexurl | append: '">Download Bibtex</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+            {% if page.paperurl %}{%- assign link = '<a href="' | append: page.paperurl | append: '">Paper</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+            {% if page.slidesurl %}{%- assign link = '<a href="' | append: page.slidesurl | append: '">Slides</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+            {% if page.codeurl %}{%- assign link = '<a href="' | append: page.codeurl | append: '">Code</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+            {% if page.bibtexurl %}{%- assign link = '<a href="' | append: page.bibtexurl | append: '">Citation</a>' -%}{%- assign links = links | push: link -%}{% endif %}
             {{ links | join: " | " }}
           </p>
         {% endif %}

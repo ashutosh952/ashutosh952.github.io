@@ -52,16 +52,15 @@
     <div class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></div>
     {% endif %}
     
-    {% if post.citation or post.paperurl or post.slidesurl or post.bibtexurl %}
+    {% if post.citation or post.paperurl or post.slidesurl or post.bibtexurl or post.codeurl %}
       <p>
         {% if post.citation %}{{ post.citation }}{% endif %}
-        {% if post.citation %}
-          {% if post.paperurl or post.slidesurl or post.bibtexurl %}<br />{% endif %}
-        {% endif %}
+        {% if post.citation and (post.paperurl or post.slidesurl or post.bibtexurl or post.codeurl) %}<br />{% endif %}
         {%- assign links = "" | split: "" -%}
-        {% if post.paperurl %}{%- assign link = '<a href="' | append: post.paperurl | append: '">Download Paper</a>' -%}{%- assign links = links | push: link -%}{% endif %}
-        {% if post.slidesurl %}{%- assign link = '<a href="' | append: post.slidesurl | append: '">Download Slides</a>' -%}{%- assign links = links | push: link -%}{% endif %}
-        {% if post.bibtexurl %}{%- assign link = '<a href="' | append: post.bibtexurl | append: '">Download Bibtex</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+        {% if post.paperurl %}{%- assign link = '<a href="' | append: post.paperurl | append: '">Paper</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+        {% if post.codeurl %}{%- assign link = '<a href="' | append: post.codeurl | append: '">Code</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+        {% if post.slidesurl %}{%- assign link = '<a href="' | append: post.slidesurl | append: '">Slides</a>' -%}{%- assign links = links | push: link -%}{% endif %}
+        {% if post.bibtexurl %}{%- assign link = '<a href="' | append: post.bibtexurl | append: '">Citation</a>' -%}{%- assign links = links | push: link -%}{% endif %}
         {{ links | join: " | " }}
       </p>
     {% endif %}
