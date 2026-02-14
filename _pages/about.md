@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "About me"
+title: "👋 About me"
 author_profile: true
 redirect_from: 
   - /about/
@@ -8,3 +8,6 @@ redirect_from:
 ---
 
 My name is Ashutosh Soni.
+
+<h2>📢 News</h2> {% for post in site.news reversed %} {% include
+archive-single.html %} {% endfor %}
